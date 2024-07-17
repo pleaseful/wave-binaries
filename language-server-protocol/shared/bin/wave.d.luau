@@ -265,22 +265,27 @@ declare class custom
     hash: (algorithm: Algorithm, data: string) -> string
 end
 
-declare class crypt
-    base64encode: (data: string) -> string
-    encrypt: (data: string, key: string, iv: any, String: string) -> string
-    decrypt: (data: string, key: string, iv: any, String: string) -> string
-    hash: (data: string) -> string
-    derive: (data: string, length: number) -> string
-    random: (size: number) -> string
-    generatekey: () -> string
-    base64decode: (data: string) -> string
-    base64: base64
-    custom: custom
-    hash: (String: string, table: any) -> string
-    generatebytes: (size: number) -> string
-end
 
-declare crypt: crypt
+declare crypt: {
+    base64encode: (data: string) -> string,
+    encrypt: (data: string, key: string, iv: any, mode: string) -> string,
+    decrypt: (data: string, key: string, iv: any, mode: string) -> string,
+    hash: (data: string) -> string,
+    derive: (data: string, length: number) -> string,
+    random: (size: number) -> string,
+    generatekey: () -> string,
+    base64decode: (data: string) -> string,
+    base64: base64,
+    custom: {
+        encrypt: (cipher: string, data: string, key: string, iv: string) -> string,
+        encrypt: (cipher: string, data: string, key: string, nonce: string) -> string,
+        decrypt: (cipher: string, data: string, key: string, iv: string) -> string,
+        decrypt: (cipher: string, data: string, key: string, nonce: string) -> string,
+        hash: (algorithm: Algorithm, data: string) -> string
+    },
+    hash: (data: string, salt: any) -> string,
+    generatebytes: (size: number) -> string
+}
 
 -- @debug-library
 declare class debug
@@ -367,13 +372,6 @@ declare class DrawingTriangle extends DrawingObject
     PointA: Vector2
     PointB: Vector2
     PointC: Vector2
-end
-
-declare class DrawingFonts
-    UI: number
-    System: number
-    Plex: number
-    Monoscape: number
 end
 
 declare class Drawing
